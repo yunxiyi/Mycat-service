@@ -126,6 +126,20 @@ public class MycatConfig {
 
 	}
 
+	public void setUsers(Map<String, UserConfig> users) {
+		this.users = users;
+	}
+
+	public void setSchemas(Map<String, SchemaConfig> schemas) {
+		this.schemas = schemas;
+	}
+
+	public void setDataHosts(Map<String, PhysicalDBPool> dataHosts) {
+		this.dataHosts = dataHosts;
+	}
+
+
+
 	public Map<String, UserConfig> getUsers() {
 		return users;
 	}

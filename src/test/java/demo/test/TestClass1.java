@@ -16,8 +16,8 @@ public class TestClass1 {
     public static void main( String args[] ) throws SQLException , ClassNotFoundException {
         String jdbcdriver="com.mysql.jdbc.Driver";
         String jdbcurl="jdbc:mysql://127.0.0.1:8066/TESTDB?useUnicode=true&characterEncoding=utf-8";
-        String username="test";
-        String password="test";
+        String username="user";
+        String password="user";
         System.out.println("开始连接mysql:"+jdbcurl);
         Class.forName(jdbcdriver);
         Connection c = DriverManager.getConnection(jdbcurl,username,password); 

@@ -11,6 +11,7 @@ import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlCreateTableStateme
 import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlInsertStatement;
 import com.alibaba.druid.sql.dialect.mysql.parser.MySqlStatementParser;
 import com.alibaba.druid.wall.spi.WallVisitorUtils;
+import com.alibaba.fastjson.JSON;
 import com.google.common.base.Strings;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -177,7 +178,8 @@ public class RouterUtil {
 			tablename = RouterUtil.getTableName(stmt, RouterUtil.getTruncateTablePos(upStmt, 0));
 		}
 		tablename = tablename.toUpperCase();
-		
+
+		System.out.println(JSON.toJSONString(schema.getTables()));
 		if (schema.getTables().containsKey(tablename)){
 			if(ServerParse.DDL==sqlType){
 				List<String> dataNodes = new ArrayList<>();

@@ -35,6 +35,8 @@ import java.util.List;
 import java.util.Map;
 
 import io.mycat.config.Versions;
+import io.mycat.config.loader.redis.RedisShchemaLoader;
+import io.mycat.config.loader.redis.RedisUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -57,9 +59,9 @@ import io.mycat.util.SplitUtil;
  */
 @SuppressWarnings("unchecked")
 public class XMLServerLoader {
-    private final SystemConfig system;
-    private final Map<String, UserConfig> users;
-    private final FirewallConfig firewall;
+    private SystemConfig system;
+    private Map<String, UserConfig> users;
+    private FirewallConfig firewall;
     private ClusterConfig cluster;
 
     public XMLServerLoader() {
@@ -98,7 +100,10 @@ public class XMLServerLoader {
             loadSystem(root);
             
             //加载User标签
-            loadUsers(root);
+            users = RedisShchemaLoader.load("user:*", UserConfig.class);
+            if(users.isEmpty()) {
+                loadUsers(root);
+            }
             
             //加载集群配置
             this.cluster = new ClusterConfig(root, system.getServerPort());
@@ -214,6 +219,7 @@ public class XMLServerLoader {
                 if (users.containsKey(name)) {
                     throw new ConfigException("user " + name + " duplicated!");
                 }
+                RedisUtils.set("user:" + name, user);
                 users.put(name, user);
             }
         }

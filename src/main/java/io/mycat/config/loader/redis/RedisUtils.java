@@ -72,13 +72,13 @@ public class RedisUtils {
      *
      * @param jedis
      */
-    private synchronized static void close(final Jedis jedis) {
+    private static void close(final Jedis jedis) {
         if (jedis != null) {
             jedis.close();
         }
     }
 
-    public synchronized static <T> T get(String key, Class<T> clazz){
+    public static <T> T get(String key, Class<T> clazz){
         Jedis jedis = null;
         try {
             jedis = getJedis();
@@ -94,7 +94,7 @@ public class RedisUtils {
         }
     }
 
-    public synchronized static <T> void set(String key, T value){
+    public static <T> void set(String key, T value){
         Jedis jedis = null;
         try {
             jedis = getJedis();
@@ -107,7 +107,7 @@ public class RedisUtils {
         }
     }
 
-    public synchronized static <T> Map<String, T> getAll(String pattern, Class<T> clazz){
+    public static <T> Map<String, T> getAll(String pattern, Class<T> clazz){
         Jedis jedis = null;
         Map<String, T> valueMap = new HashMap<>();
         try {
