@@ -580,6 +580,7 @@ public class MycatServer {
 	private Properties loadDnIndexProps() {
 		Properties prop = new Properties();
 		File file = new File(SystemConfig.getHomePath(), "conf" + File.separator + "dnindex.properties");
+		System.out.println(file.getName());
 		if (!file.exists()) {
 			return prop;
 		}

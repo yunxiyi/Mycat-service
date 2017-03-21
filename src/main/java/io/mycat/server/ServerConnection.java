@@ -26,6 +26,9 @@ package io.mycat.server;
 import java.io.IOException;
 import java.nio.channels.NetworkChannel;
 
+import cn.edu.nwsuaf.service.TableService;
+import cn.edu.nwsuaf.service.impl.TableServiceImpl;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -286,6 +289,13 @@ public class ServerConnection extends FrontendConnection {
 		if (rrs != null) {
 			// session执行
 			session.execute(rrs, type);
+
+			String stmt = StringUtils.upperCase(rrs.getStatement());
+			if(StringUtils.startsWith(stmt, "DROP")){
+				TableService tableService = new TableServiceImpl();
+				String tableName = tableService.getTableName(stmt);
+				tableService.deleteTable(tableName, schema.getName());
+			}
 		}
 	}
 

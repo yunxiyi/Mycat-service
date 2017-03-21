@@ -23,6 +23,10 @@
  */
 package io.mycat.net;
 
+import cn.edu.nwsuaf.model.Table;
+import cn.edu.nwsuaf.service.TableService;
+import cn.edu.nwsuaf.service.impl.TableServiceImpl;
+import cn.edu.nwsuaf.util.SQLFilterUtil;
 import org.slf4j.Logger; import org.slf4j.LoggerFactory;
 
 import io.mycat.MycatServer;
@@ -278,7 +282,8 @@ public abstract class FrontendConnection extends AbstractConnection {
 	
 	
 	public void query(String sql) {
-		
+		sql = SQLFilterUtil.filterSql(sql);
+
 		if (sql == null || sql.length() == 0) {
 			writeErrMessage(ErrorCode.ER_NOT_ALLOWED_COMMAND, "Empty SQL");
 			return;

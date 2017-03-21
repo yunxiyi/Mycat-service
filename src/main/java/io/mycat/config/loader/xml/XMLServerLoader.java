@@ -35,8 +35,8 @@ import java.util.List;
 import java.util.Map;
 
 import io.mycat.config.Versions;
-import io.mycat.config.loader.redis.RedisShchemaLoader;
-import io.mycat.config.loader.redis.RedisUtils;
+import cn.edu.nwsuaf.redis.RedisShchemaLoader;
+import cn.edu.nwsuaf.redis.RedisUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -76,7 +76,7 @@ public class XMLServerLoader {
     }
 
     public Map<String, UserConfig> getUsers() {
-        return (Map<String, UserConfig>) (users.isEmpty() ? Collections.emptyMap() : Collections.unmodifiableMap(users));
+        return (users.isEmpty() ? new HashMap<String, UserConfig>(): users);
     }
 
     public FirewallConfig getFirewall() {

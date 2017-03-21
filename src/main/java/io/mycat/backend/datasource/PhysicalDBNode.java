@@ -76,7 +76,7 @@ public class PhysicalDBNode {
 
 	}
 
-	private void checkRequest(String schema){
+	private void  checkRequest(String schema){
 		if (schema != null
 				&& !schema.equals(this.database)) {
 			throw new RuntimeException(

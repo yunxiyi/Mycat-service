@@ -1,12 +1,9 @@
-package io.mycat.config.loader.redis;
+package cn.edu.nwsuaf.redis;
 
-import io.mycat.config.loader.xml.XMLRuleLoader;
 import io.mycat.config.model.DataHostConfig;
 import io.mycat.config.model.DataNodeConfig;
 import io.mycat.config.model.SchemaConfig;
-import io.mycat.config.model.rule.TableRuleConfig;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -19,7 +16,7 @@ public class RedisShchemaLoader {
                       Map<String, SchemaConfig> schemas) {
         dataHosts = load("dataHost:*", DataHostConfig.class);
         dataNodes = load("dataNode:*", DataNodeConfig.class);
-        //schemas = load("schema:*", SchemaConfig.class);
+        schemas = load("schema:*", SchemaConfig.class);
 
     }
     public static <T> Map<String, T> load(String pattern, Class<T> clazz){

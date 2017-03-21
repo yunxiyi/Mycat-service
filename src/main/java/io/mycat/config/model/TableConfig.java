@@ -378,4 +378,28 @@ public class TableConfig {
 	public void setIsRuleRequired(boolean isRuleRequired) {
 		this.isRuleRequired = isRuleRequired;
 	}
+
+	public boolean isRuleRequired() {
+		return isRuleRequired;
+	}
+
+	public void setRuleRequired(boolean ruleRequired) {
+		isRuleRequired = ruleRequired;
+	}
+
+	public boolean isSecondLevel() {
+		return isSecondLevel;
+	}
+
+	public void setSecondLevel(boolean secondLevel) {
+		isSecondLevel = secondLevel;
+	}
+
+	public boolean isPartionKeyIsPrimaryKey() {
+		return isPartionKeyIsPrimaryKey;
+	}
+
+	public void setPartionKeyIsPrimaryKey(boolean partionKeyIsPrimaryKey) {
+		isPartionKeyIsPrimaryKey = partionKeyIsPrimaryKey;
+	}
 }

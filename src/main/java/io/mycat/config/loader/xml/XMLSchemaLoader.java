@@ -29,8 +29,8 @@ import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import io.mycat.config.loader.redis.RedisShchemaLoader;
-import io.mycat.config.loader.redis.RedisUtils;
+import cn.edu.nwsuaf.redis.RedisShchemaLoader;
+import cn.edu.nwsuaf.redis.RedisUtils;
 import io.mycat.config.model.rule.RuleConfig;
 import io.mycat.route.function.TableRuleAware;
 import io.mycat.util.ObjectUtil;

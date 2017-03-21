@@ -1,4 +1,4 @@
-package io.mycat.config.loader.redis;
+package cn.edu.nwsuaf.redis;
 
 import com.alibaba.fastjson.JSON;
 import redis.clients.jedis.Jedis;
@@ -6,7 +6,6 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -104,6 +103,23 @@ public class RedisUtils {
             e.printStackTrace();
         }finally {
             close(jedis);
+        }
+    }
+
+    public static <T> T remove(String  key, Class<T> clazz){
+        Jedis jedis = null;
+        try{
+            jedis = getJedis();
+            String value = jedis.get(key);
+
+            T target = JSON.parseObject(value, clazz);
+            jedis.del(key);
+            return target;
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            close(jedis);
+            return null;
         }
     }
 

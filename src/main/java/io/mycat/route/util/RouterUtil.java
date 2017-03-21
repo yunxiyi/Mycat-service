@@ -1,5 +1,7 @@
 package io.mycat.route.util;
 
+import cn.edu.nwsuaf.service.TableService;
+import cn.edu.nwsuaf.service.impl.TableServiceImpl;
 import com.alibaba.druid.sql.ast.SQLExpr;
 import com.alibaba.druid.sql.ast.SQLStatement;
 import com.alibaba.druid.sql.ast.expr.SQLCharExpr;
@@ -160,17 +162,26 @@ public class RouterUtil {
 		stmt = getFixedSql(stmt);
 		String tablename = "";		
 		final String upStmt = stmt.toUpperCase();
+		TableService tableService = new TableServiceImpl();
+
 		if(upStmt.startsWith("CREATE")){
 			if (upStmt.contains("CREATE INDEX ")){
 				tablename = RouterUtil.getTableName(stmt, RouterUtil.getCreateIndexPos(upStmt, 0));
 			}else {
-				tablename = RouterUtil.getTableName(stmt, RouterUtil.getCreateTablePos(upStmt, 0));
+  				tablename = RouterUtil.getTableName(stmt, RouterUtil.getCreateTablePos(upStmt, 0));
 			}
+			if(upStmt.startsWith("CREATE DATABASE")){
+				throw new SQLSyntaxErrorException("can't " + stmt);
+			}
+			tableService.createTable(tablename, schema.getName());
 		}else if(upStmt.startsWith("DROP")){
 			if (upStmt.contains("DROP INDEX ")){
 				tablename = RouterUtil.getTableName(stmt, RouterUtil.getDropIndexPos(upStmt, 0));
 			}else {
 				tablename = RouterUtil.getTableName(stmt, RouterUtil.getDropTablePos(upStmt, 0));
+			}
+			if(upStmt.startsWith("DROP DATABASE")){
+				throw new SQLSyntaxErrorException("can't " + stmt);
 			}
 		}else if(upStmt.startsWith("ALTER")){
 			tablename = RouterUtil.getTableName(stmt, RouterUtil.getAlterTablePos(upStmt, 0));
@@ -179,7 +190,6 @@ public class RouterUtil {
 		}
 		tablename = tablename.toUpperCase();
 
-		System.out.println(JSON.toJSONString(schema.getTables()));
 		if (schema.getTables().containsKey(tablename)){
 			if(ServerParse.DDL==sqlType){
 				List<String> dataNodes = new ArrayList<>();
@@ -207,6 +217,9 @@ public class RouterUtil {
 				}
 				rrs.setNodes(nodes);
 			}
+			if(upStmt.startsWith("DROP")){
+
+			}
 			return rrs;
 		}else if(schema.getDataNode()!=null){		//默认节点ddl
 			RouteResultsetNode[] nodes = new RouteResultsetNode[1];
@@ -217,6 +230,7 @@ public class RouterUtil {
 		}
 		//both tablename and defaultnode null
 		LOGGER.error("table not in schema----"+tablename);
+		tableService.deleteTable(tablename, schema.getName());
 		throw new SQLSyntaxErrorException("op table not in schema----"+tablename);
 	}
 
