@@ -4,15 +4,11 @@ package cn.edu.nwsuaf.model;
  * Created by huangrongchao on 2017/3/21.
  */
 public class User {
-//    <user name="user">
-//		<property name="password">user</property>
-//		<property name="schemas">USERDB</property>
-//		<property name="readOnly">true</property>
-//	</user>
     private String name;
     private String password;
     private String schemas;
     private boolean readOnly = false;
+    private boolean used = false;
 
     public String getName() {
         return name;
@@ -46,6 +42,14 @@ public class User {
         this.readOnly = readOnly;
     }
 
+    public boolean isUsed() {
+        return used;
+    }
+
+    public void setUse(boolean used) {
+        this.used = used;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -53,6 +57,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", schemas='" + schemas + '\'' +
                 ", readOnly=" + readOnly +
+                ", used=" + used +
                 '}';
     }
 }

@@ -15,7 +15,7 @@ import java.util.Random;
 /**
  * genarate random test data 
  * such as 
- * values ('$date{yyyyMMddHHmmsss-[2014-2015]y}/psn$date{yyyy}s/$int(0-9999)/16767:20725','$char(2,0-99) OPP_$enum(BJ,SH,GZ,SZ)_$int(0-9)',$int(10,11),$int(400,420,500,600,800),$int(0-1000),$int(0-100),Sint(0-10),$int(0-99),'201408040028317067b41c0db-4a93-4360-9eb4-e159d1dbef45',$phone,2,2014071715,2315998,1397,152317998,1395,'0000');
+ * values ('$date{yyyyMMddHHmmsss-[2014-2015]y}/psn$date{yyyy}s/$int(0-9999)/16767:20725','$char(2,0-99) OPP_$enums(BJ,SH,GZ,SZ)_$int(0-9)',$int(10,11),$int(400,420,500,600,800),$int(0-1000),$int(0-100),Sint(0-10),$int(0-99),'201408040028317067b41c0db-4a93-4360-9eb4-e159d1dbef45',$phone,2,2014071715,2315998,1397,152317998,1395,'0000');
  * @author wuzhih
  *
  */
@@ -31,7 +31,7 @@ public class RandomDataValueUtil {
 	 * (
 	 * '${date(yyyyMMddHHmmsss-[2014-2015]y)}/psn${date(yyyy)}s/${int(0-9999)}/1
 	 * 6 7 6 7 : 2 0 7 2 5 ' , ' $ { s t r i n g ( 2 , 0 - 9 9 )}
-	 * OPP_${enum(BJ,SH,GZ,SZ)}_${int(0-9)}
+	 * OPP_${enums(BJ,SH,GZ,SZ)}_${int(0-9)}
 	 * ',${int(10,11)},$int(400,420,500,600,800),$int(0-1000),$int(0-100),$int(0-10),$int(0-99),'201408040028317067b41c0db-4a93-4360-9eb4-e159d1
 	 * d b e f 4 5 ' , $ p h o n e , 2 , 2 0 1 4 0 7 1 7 1 5 , 2 3 1 5 9 9 8 , 1
 	 * 3 9 7 , 1 5 2 3 1 7 9 9 8 , 1 3 9 5 , ' 0 0 0 0 ' )
@@ -118,7 +118,7 @@ public class RandomDataValueUtil {
 	}
 
 	public static void main(String[] args) throws Exception {
-		String sqlTemplate = "insert into opp_call (logthread, instanceid,callresult,partner, app_id,api_id,apiversion,format,token , phone,calltype, calldate,callminutes,callcost,ecipcalltime,ecipcallcost ,respcode) values ('${date(yyyyMMddHHmmssSSS-[2014-2015]y)}/psn2002s/${int(0-9999)}/${int(1111-9999)}:20725','${char([0-9]2:2)} OPP_${enum(BJ,SH,WU,GZ)}_1',10,${int(10-999)},${int(10-99)},100,3,15,'${date(yyyyMMddHHmmssSSS-[2014-2015]y}${char([a-f,0-9]8:8)}-${char([a-f,0-9]4:4)}-${char([0-9]4:4)}-9eb4-${char([a-f,0-9]12:12)}',${phone(139-189)},2,${date(yyyyMMddHH-[2014-2015]y},2315998,1397,${date(HHmmssSSS)},${int(100-1000)},'${enum(0000,0001,0002)}');";
+		String sqlTemplate = "insert into opp_call (logthread, instanceid,callresult,partner, app_id,api_id,apiversion,format,token , phone,calltype, calldate,callminutes,callcost,ecipcalltime,ecipcallcost ,respcode) values ('${date(yyyyMMddHHmmssSSS-[2014-2015]y)}/psn2002s/${int(0-9999)}/${int(1111-9999)}:20725','${char([0-9]2:2)} OPP_${enums(BJ,SH,WU,GZ)}_1',10,${int(10-999)},${int(10-99)},100,3,15,'${date(yyyyMMddHHmmssSSS-[2014-2015]y}${char([a-f,0-9]8:8)}-${char([a-f,0-9]4:4)}-${char([0-9]4:4)}-9eb4-${char([a-f,0-9]12:12)}',${phone(139-189)},2,${date(yyyyMMddHH-[2014-2015]y},2315998,1397,${date(HHmmssSSS)},${int(100-1000)},'${enums(0000,0001,0002)}');";
 		System.out.println("SQL template:\r\n" + sqlTemplate);
 		LinkedList<StringItem> allItems = parselRandVarTemplateString(sqlTemplate);
 		// for (StringItem item : allItems) {
@@ -138,7 +138,7 @@ class StringItemFactory {
 		strItemsMap.put("date", DateVarItem.class);
 		strItemsMap.put("int", IntVarItem.class);
 		strItemsMap.put("char", CharVarItem.class);
-		strItemsMap.put("enum", EnumVarItem.class);
+		strItemsMap.put("enums", EnumVarItem.class);
 		strItemsMap.put("phone", PhoneVarItem.class);
 
 	}
@@ -194,7 +194,7 @@ class PhoneVarItem extends StringItem {
 }
 
 class EnumVarItem extends StringItem {
-	// {enum(BJ,SH,GZ,SZ)
+	// {enums(BJ,SH,GZ,SZ)
 	String[] enums = {};
 
 	public void initString(String content) {

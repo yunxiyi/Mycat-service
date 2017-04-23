@@ -24,7 +24,7 @@ mycat-cluster:
           - testdb
     rule :
       sharding-by-enum :
-        name : sharding-by-enum
+        name : sharding-by-enums
         functionName : io.mycat.route.function.PartitionByFileMap
         column : create_time
         defaultnode : 0
@@ -125,13 +125,13 @@ mycat-cluster:
           name :  employee
           datanode :  dn1,dn2
           primaryKey : ID
-          ruleName : sharding-by-enum
+          ruleName : sharding-by-enums
 
         customer :
           name :  customer
           datanode :  dn1,dn2
           primaryKey : ID
-          ruleName : sharding-by-enum
+          ruleName : sharding-by-enums
 
           orders :
             name :  orders

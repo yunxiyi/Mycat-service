@@ -8,14 +8,19 @@ import io.mycat.MycatServer;
 import io.mycat.config.model.UserConfig;
 import io.mycat.config.model.UserPrivilegesConfig;
 import io.mycat.util.SplitUtil;
+import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by huangrongchao on 2017/3/21.
  */
+@Service
 public class UserServiceImpl implements UserService {
     @Override
     public UserConfig add(User user) {
@@ -40,6 +45,17 @@ public class UserServiceImpl implements UserService {
         users.put(userConfig.getName(), userConfig);
 
         return userConfig;
+    }
+
+    @Override
+    public Set<UserConfig> getAll() {
+        Map<String, UserConfig> userConfigMap = RedisUtils.getAll("user:*", UserConfig.class);
+        Set<UserConfig> userConfigs = new HashSet<>();
+        userConfigMap.values().forEach(userConfig->{
+            userConfigs.add(userConfig);
+        });
+
+        return userConfigs;
     }
 
     private void save(UserConfig userConfig){

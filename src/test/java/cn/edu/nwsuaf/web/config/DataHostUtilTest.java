@@ -1,16 +1,13 @@
-package cn.edu.nwsuaf.config;
+package cn.edu.nwsuaf.web.config;
 
 import cn.edu.nwsuaf.model.DataHost;
 import cn.edu.nwsuaf.util.LoadDataHostUtil;
 import com.alibaba.fastjson.JSON;
 import io.mycat.MycatServer;
-import io.mycat.config.model.DBHostConfig;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by huangrongchao on 2017/3/15.
